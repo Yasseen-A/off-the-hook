@@ -12,10 +12,10 @@ def home():
 
 @app.route("/predict",methods=['POST','GET'])
 def predict():
-    int_features=[request.model_input]
+    int_features=[int (x) for x in request.form.values()]
     final=[np.array(int_features)]
     prediction=model.predict_proba(final)
-    output='{0:.{1}f}'.format(prediction[0][1], 2)
+    output='{0:.{1}f}'.format(prediction[-1][1], 2)
 
     if output>str(0.5):
         return render_template('index.html',pred='Your Forest is in Danger.\nProbability of fire occuring is {}'.format(output))

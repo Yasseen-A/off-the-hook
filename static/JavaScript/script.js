@@ -31,7 +31,6 @@ function myFunction() {
     if(str.charAt(i) == 'h' && str.charAt(i+1) == 't' && str.charAt(i+2) == 't' && str.charAt(i+3) == 'p' && str.charAt(i+4) == 's')
     count2++;
   }
-  alert(count2);
 
   var count3 = 0;
 
@@ -40,7 +39,7 @@ function myFunction() {
     if(str.charAt(i) == 'h' && str.charAt(i+1) == 't' && str.charAt(i+2) == 't' && str.charAt(i+3) == 'p' && str.charAt(i+4) != 's')
     count3++;
   }
-  //alert(count3);
+
 
   var token_result;
   if (count3 >= 1 && count2 >= 1 || count2 > 1){
@@ -67,7 +66,7 @@ function myFunction() {
   } else {
     slashing_result = -1;
   }
-  //alert(count);
+
   document.getElementById("slashing").innerHTML = slashing_result;
 
   //sfh
@@ -87,7 +86,7 @@ function myFunction() {
   } else {
     url_length = -1;
   }
-  // alert(url_length);
+
 
   //assigning the value if the URL contains "@" symbol
   var at;
@@ -96,7 +95,7 @@ function myFunction() {
   } else {
     at = -1;
   }
-  // alert(at);
+
 
   //assigning the value if the URL contains "@" symbol
   var prefix_result;
@@ -105,13 +104,13 @@ function myFunction() {
   } else {
     prefix_result = -1;
   }
-  // alert(prefix_result);
+
 
   //filterting out the url to contain only an IP address
   var ip_add;
   ip = str.replace(/[^\d.-]/g, '');
   ip2 = ip.replace(/[-]/g, "");
-  // alert(ip2);
+
 
   //checking to see whether the number and characters left in the url are in the format of a IP address
   if (/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(ip2)
@@ -120,17 +119,17 @@ function myFunction() {
   || /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.\.\.$/.test(ip2)
   || /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.\.\.\.$/.test(ip2)) {
     ip_add = 1;
-    // alert("you have an ip address" + ip_add);
+
     document.getElementById("ip_address").innerHTML = ip2;
     var new_input = [url_length, at, ip_add, slashing_result, prefix_result, ssl_result, token_result, sfh_result];
-    document.getElementById("model_input").innerHTML = new_input;
+    document.getElementById("first_name").value = new_input;
     return (true);
   }
   ip_add = -1;
-  // alert("You have entered an invalid IP address!" + ip_add)
+
   document.getElementById("ip_address").innerHTML = "no ip address "  + ip2;
   var new_input = [url_length, at, ip_add, slashing_result, prefix_result, ssl_result, token_result, sfh_result];
-  document.getElementById("model_input").innerHTML = new_input;
+  document.getElementById("first_name").value = new_input;
   return (false);
 
 
