@@ -4,24 +4,13 @@ function myFunction() {
 
   //checking how long the URL length is
   var length = str.length;
-  document.getElementById("url_length").innerHTML = length;
-
-  //checking to see if the "@" symbol is in the URL
-  var at_symbol = str.includes("@");
-  document.getElementById("at_symbol").innerHTML = at_symbol;
-
-  //checking to see if the "-" symbol is in the URL
-  var prefix = str.includes("-");
-  document.getElementById("prefix").innerHTML = prefix;
 
   //assigning the value for the SSL
-  var ssl_result;
   if (str.includes("https")){
-    ssl_result = 1;
+    document.getElementById("SSL").value = "1";
   } else {
-    ssl_result = -1;
+    document.getElementById("SSL").value = "-1";
   }
-  document.getElementById("ssl").innerHTML = ssl_result;
 
   //checking to see if https is part of the domain name
   var count2 = 0;
@@ -41,13 +30,11 @@ function myFunction() {
   }
 
 
-  var token_result;
   if (count3 >= 1 && count2 >= 1 || count2 > 1){
-    token_result = 1;
+    document.getElementById("token").value = "1";
   } else {
-    token_result = -1;
+    document.getElementById("token").value = "-1";
   }
-  document.getElementById("https").innerHTML = token_result;
 
   //checking to see if it has double slashing in the URL
   var count = 0;
@@ -60,49 +47,43 @@ function myFunction() {
   }
 
   // assigning the value if the URL contains "@" symbol
-  var slashing_result;
   if (count > 1){
-    slashing_result = 1;
+    document.getElementById("slash").value = "1";
   } else {
-    slashing_result = -1;
+    document.getElementById("slash").value = "-1";
   }
 
-  document.getElementById("slashing").innerHTML = slashing_result;
 
-  //sfh
-
-  var sfh_result;
   if (str.includes("about:blank") || str.includes(" ")){
-    sfh_result = 1;
+    document.getElementById("SFH").value = "1";
   } else {
-    sfh_result = -1;
+    document.getElementById("SFH").value = "-1";
   }
-  document.getElementById("sfh").innerHTML = sfh_result;
 
   //assigning the value of 1 if the Length is greater than 54
   var url_length;
   if (length >= 54){
-    url_length = 1;
+    document.getElementById("url").value = "1";
   } else {
-    url_length = -1;
+    document.getElementById("url").value = "-1";
   }
 
 
   //assigning the value if the URL contains "@" symbol
   var at;
   if (str.includes("@")){
-    at = 1;
+    document.getElementById("at").value = "1";
   } else {
-    at = -1;
+    document.getElementById("at").value = "-1";
   }
 
 
   //assigning the value if the URL contains "@" symbol
   var prefix_result;
   if (str.includes("-")){
-    prefix_result = 1;
+    document.getElementById("prefixes").value = "1";
   } else {
-    prefix_result = -1;
+    document.getElementById("prefixes").value = "-1";
   }
 
 
@@ -118,19 +99,12 @@ function myFunction() {
   || /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.\.$/.test(ip2)
   || /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.\.\.$/.test(ip2)
   || /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.\.\.\.$/.test(ip2)) {
-    ip_add = 1;
-
-    document.getElementById("ip_address").innerHTML = ip2;
-    var new_input = [url_length, at, ip_add, slashing_result, prefix_result, ssl_result, token_result, sfh_result];
-    document.getElementById("first_name").value = new_input;
+    document.getElementById("IP").value = "1";
     return (true);
   }
-  ip_add = -1;
-
-  document.getElementById("ip_address").innerHTML = "no ip address "  + ip2;
-  var new_input = [url_length, at, ip_add, slashing_result, prefix_result, ssl_result, token_result, sfh_result];
-  document.getElementById("first_name").value = new_input;
+  document.getElementById("IP").value = "-1";
   return (false);
+
 
 
 }

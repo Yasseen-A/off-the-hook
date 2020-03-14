@@ -1,68 +1,43 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Off the hook</title>
-    <script src="{{ url_for('static',    filename='JavaScript/script.js') }}"></script>
-    <link rel="stylesheet" href="{{ url_for('static',    filename='css/style.css') }}">
 
-  </head>
+<head>
+  <meta charset="utf-8">
+  <title>Off the hook</title>
+  <script src="{{ url_for('static',    filename='JavaScript/script.js') }}"></script>
+  <link rel="stylesheet" href="{{ url_for('static',    filename='css/style.css') }}">
+
+</head>
 
 
-  <body>
-<form action='/predict' method="post" class="col s12">
-    <div>
+<body>
+  <form action='/predict' method="post" class="col s12">
+  <div>
     <input type="text" id="url_input">
     <button onclick="myFunction()">Try it</button>
   </div>
 
-    url length
-    <p id="url_length"></p>
+  <br>
 
-    checking for @ symbol
-    <p id="at_symbol"></p>
+  <input name="1" type="text" id="IP" value=" ">
+  <input name="2" type="text" id="url" value=" ">
+  <input name="3" type="text" id="at" value=" ">
+  <input name="4" type="text" id="slash" value=" ">
+  <input name="5" type="text" id="prefixes" value=" ">
+  <input name="6" type="text" id="SSL" value=" ">
+  <input name="7" type="text" id="token" value=" ">
+  <input name="8" type="text" id="SFH" value=" ">
 
-    having an IP address
-    <p id="ip_address"></p>
+  <br>
+  {{pred}}<br>
 
-    double slash redirecting
-    <p id="slashing"></p>
-
-    prefix
-    <p id="prefix"></p>
-
-    ssl final state
-    <p id="ssl"></p>
-
-    https token
-    <p id="https"></p>
-
-    sfh
-    <p id="sfh"></p>
-
-    input for model
-    <p id="model_input"></p>
-
-    <br>
-        {{pred}}<br>
-
-
-
-  <input name="1" id="1" type="text" class="validate">
-  <input name="2" id="2" type="text" class="validate">
-  <input name="3" id="3" type="text" class="validate">
-  <input name="4" id="4" type="text" class="validate">
-  <input name="5" id="5" type="text" class="validate">
-  <input name="6" id="6" type="text" class="validate">
-  <input name="7" id="7" type="text" class="validate">
-  <input name="8" id="8" type="text" class="validate">
 
 
 
   </form>
 
 
-  </body>
+</body>
 
 
 
