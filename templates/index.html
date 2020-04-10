@@ -10,10 +10,13 @@
 </head>
 
 
-<body>
-  <form action='/predict' method="post" class="col s12">
-  <div>
+<body background="images/milkovi-kYlYwQze5vI-unsplash.jpg">
+  <center>
+    <form action='/predict' method="post" class="model_data">
+    <h1>Enter URL below to find out if it is a phishing website or not</h1>
+    <div>
     <input type="text" id="url_input">
+    <br>
     <button onclick="myFunction()">Try it</button>
   </div>
 
@@ -28,13 +31,12 @@
   <input name="7" type="text" id="token" value=" ">
   <input name="8" type="text" id="SFH" value=" ">
 
+
   <br>
-  {{pred}}<br>
+  <h1>{{pred}}</h1>
+  <br>
 
-
-
-
-  </form>
+</form></center>
 
 
 </body>
