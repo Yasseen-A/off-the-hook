@@ -1,3 +1,7 @@
+.container {
+  margin-top: 60px;
+}
+
 #url_input {
   width: 200px;
   height: 20px;
@@ -13,15 +17,19 @@
   visibility: hidden;
 }
 
-body {
+/* body {
   background-image: url('/static/img/background.jpg');
   background-position: center center;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
   background-color: #464646;
-}
+} */
 
 h1 {
-  color: white;
+  margin-top: 100px;
+}
+
+.abcdefg {
+  margin-top: 60px;
 }

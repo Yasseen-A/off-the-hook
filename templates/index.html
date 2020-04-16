@@ -1,14 +1,6 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
+{% extends 'layout.html' %}
 
-<head>
-  <meta charset="utf-8">
-  <title>Off the hook</title>
-  <script src="{{ url_for('static',    filename='JavaScript/script.js') }}"></script>
-  <link rel="stylesheet" href="{{ url_for('static',    filename='css/style.css') }}">
-
-</head>
-
+{% block body %}
 
 <body background="images/milkovi-kYlYwQze5vI-unsplash.jpg">
   <center>
@@ -17,7 +9,7 @@
     <div>
     <input type="text" id="url_input">
     <br>
-    <button onclick="myFunction()">Try it</button>
+    <button onclick="url_info()">Try it</button>
   </div>
 
   <br>
@@ -38,9 +30,4 @@
 
 </form></center>
 
-
-</body>
-
-
-
-</html>
+{% endblock %}

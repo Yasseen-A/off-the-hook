@@ -1,4 +1,4 @@
-function myFunction() {
+function url_info() {
   //variable that will take in the URL to be checked
   var str = document.getElementById("url_input").value;
 
