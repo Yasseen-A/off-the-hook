@@ -2,7 +2,6 @@ from flask import Flask, render_template, request, redirect, url_for, flash, ses
 from flask_mysqldb import MySQL
 from wtforms import Form, StringField, TextAreaField, PasswordField, validators
 from passlib.hash import sha256_crypt
-from data import Articles
 from functools import wraps
 import pickle
 import numpy as np
@@ -19,8 +18,6 @@ app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 #init MYSQL
 mysql = MySQL(app)
 
-Articles = Articles()
-
 model=pickle.load(open('model.pkl','rb'))
 
 @app.route("/")
@@ -31,14 +28,6 @@ def home():
 def about():
     return render_template("about.html")
 
-@app.route("/articles")
-def articles():
-    return render_template("articles.html", articles = Articles)
-
-
-@app.route("/article/<string:id>/")
-def article(id):
-    return render_template("article.html", id=id)
 #Register form class
 class RegisterForm(Form):
     name = StringField('Name', [validators.Length(min=1, max=50)])
@@ -139,25 +128,94 @@ def logout():
 @app.route('/profile')
 @is_logged_in
 def profile():
-    return render_template('profile.html')
+    #Create Cursor
+    cur = mysql.connection.cursor()
+
+    #Get Articles
+    result = cur.execute("SELECT * FROM url")
+
+    url = cur.fetchall()
+
+    if result > 0:
+        return render_template('profile.html', url=url)
+    else:
+        msg = 'No URLs found'
+        return render_template('profile.html', msg=msg)
+
+    #CLose connection
+    cur.close()
+
+class ADD_URL(Form):
+    link = StringField('Link', [validators.Length(min=1, max=200)])
+    percentage = StringField('Percentage')
+
+@app.route('/add_link', methods=['GET', 'POST'])
+@is_logged_in
+def add_link():
+    form = ADD_URL(request.form)
+    if request.method == 'POST' and form.validate():
+        link = form.link.data
+        percentage = form.percentage.data
+
+        #create cursor
+        cur = mysql.connection.cursor()
+
+        #Execute
+        cur.execute("INSERT INTO url(link, percentage, user) VALUES (%s, %s, %s)", (link, percentage, session['username']))
+
+        #commit to DB
+        mysql.connection.commit()
+
+        #close connection
+        cur.close()
+
+        flash('Link has been saved', 'success')
+
+        return(redirect(url_for('profile')))
+
+    return render_template('predict.html', form=form)
+
+
+# Delete Article
+@app.route('/delete_url/<string:id>', methods=['POST'])
+@is_logged_in
+def delete_url(id):
+    # Create cursor
+    cur = mysql.connection.cursor()
+
+    # Execute
+    cur.execute("DELETE FROM url WHERE id = %s", [id])
+
+    # Commit to DB
+    mysql.connection.commit()
+
+    #Close connection
+    cur.close()
+
+    flash('URL Deleted', 'success')
+
+    return redirect(url_for('profile'))
+
+
 
 @app.route("/prediction")
 def prediction():
-    return render_template("index.html")
+    return render_template("prediction.html")
 
 @app.route("/predict",methods=['POST','GET'])
 def predict():
+    form = ADD_URL()
     int_features=[int (x) for x in request.form.values()]
     final=[np.array(int_features)]
     prediction=model.predict_proba(final)
     pred_format=prediction * 100
-    output='{0:.{1}f}'.format(pred_format[-1][1], 2)
+    output='{0:.{1}f}'.format(pred_format[-1][1], 0)
+    # text = request.form['url_input']
 
     if output>str(50):
-        return render_template('index.html',pred='This website is safe.\n Security level of %{}'.format(output))
+        return render_template('add_link.html',pred='This website is safe.\n Security level of:',form=form, pred1=output)
     else:
-        return render_template('index.html',pred='This website is not safe.\n Security level of only %{}'.format(output))
-
+        return render_template('add_link.html',pred='This website is not safe.\n Security level of only %{}'.format(output),form=form, pred1=output)
 
 if __name__ == "__main__":
     app.secret_key='secret123'

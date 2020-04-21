@@ -1,6 +1,11 @@
 function url_info() {
   //variable that will take in the URL to be checked
   var str = document.getElementById("url_input").value;
+  var test = document.getElementsByName("test")[0];
+
+  test = str;
+
+  alert(test)
 
   //checking how long the URL length is
   var length = str.length;

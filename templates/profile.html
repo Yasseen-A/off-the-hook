@@ -2,6 +2,34 @@
 
 {% block body %}
 
-<h1>Dashboard <small>Welsome {{session.username}}</small></h1>
+<h1>Profile <small>Welcome {{session.username}}</small></h1>
+
+<table class="table table-striped">
+  <tr>
+    <th>ID</th>
+    <th>Link</th>
+    <th>Percentage</th>
+    <th>User</th>
+    <th>Date</th>
+    <th></th>
+    <th></th>
+  </tr>
+  {% for url in url %}
+  <tr>
+    <td>{{url.id}}</td>
+    <td>{{url.link}}</td>
+    <td>% {{url.percentage}}</td>
+    <td>{{url.user}}</td>
+    <td>{{url.create_date}}</td>
+    <td>
+      <form action="{{url_for('delete_url', id=url.id)}}" method="post">
+        <input type="hidden" name="_method" value="DELETE">
+        <input type="submit" value="delete" class="btn btn-danger">
+      </form>
+    </td>
+  </tr>
+
+  {% endfor %}
+</table>
 
 {% endblock %}

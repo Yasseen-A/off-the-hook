@@ -2,15 +2,20 @@
 
 {% block body %}
 
-<body background="images/milkovi-kYlYwQze5vI-unsplash.jpg">
   <center>
-    <form action='/predict' method="post" class="model_data">
+    <form action='/predict' method="post" class="model_data" name="post">
+
     <h1>Enter URL below to find out if it is a phishing website or not</h1>
-    <div>
-    <input type="text" id="url_input">
-    <br>
-    <button onclick="url_info()">Try it</button>
-  </div>
+
+    <div class="form-group" onsubmit ="return false">
+
+        <input type="text" class="form-control" id="url_input">
+
+        <button class="btn btn-success" onclick="url_info()">Predict</button>
+
+        <a class="btn btn-danger" href="/add_link">Predict & Save URL</a>
+
+    </div>
 
   <br>
 
@@ -23,11 +28,10 @@
   <input name="7" type="text" id="token" value=" ">
   <input name="8" type="text" id="SFH" value=" ">
 
+  <h1 name="test"></h1>
+</form>
 
-  <br>
-  <h1>{{pred}}</h1>
-  <br>
 
-</form></center>
+</center>
 
 {% endblock %}
