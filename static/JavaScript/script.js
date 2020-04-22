@@ -5,8 +5,6 @@ function url_info() {
 
   test = str;
 
-  alert(test)
-
   //checking how long the URL length is
   var length = str.length;
 

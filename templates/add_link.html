@@ -1,28 +1,51 @@
 {% extends 'layout.html' %}
 
 {% block body %}
+<center>
+  <div class="result_image">
+    <img src="{{ result_image }}">
+
+    <h1>{{pred}}</h1>
+    <h1>%{{pred1}}</h1>
+  </div>
+
+</center>
+{% if session.logged_in%}
 <input type="checkbox" id="toggle1">
-<label for="toggle1">Open Overlay</label>
+<label for="toggle1" class="btn btn-success toggle1" id="toggle2">Save URL</label>
 
 <dialog >
-  <h1>Add URL</h1>
+  <center><h1>Save URL</h1></center>
   {% from "includes/_formhelpers.html" import render_field %}
   <form method="post" action="/add_link" name="post">
 
-    <div class="form-group">
+    <div class="form-group save_link">
       {{ render_field(form.link, class_="form-control") }}
     </div>
     <div class="form-group percentages">
       {{ render_field(form.percentage, class_="form-control", id="editor", value=pred1) }}
     </div>
-    <p><input class="btn btn-primary" type="submit" value="Submit">
+    <p><input class="btn btn-primary url_submit" type="submit" value="Submit">
+      <label for="toggle1" class="btn btn-danger toggle1">Close overlay</label>
   </form>
 
+{% else %}
 
-  <label for="toggle1">close overlay</label>
+<center>
+  <div class="url_register">
+
+
+<h5>Don't have an account? Register now to start saving and keeping track of your URLs</h5>
+<a href="/register" class="btn btn-primary">Register</a> or
+<a href="/login"class="btn btn-primary btn-success">Login</a>
+
+</div>
+</center>
+{% endif %}
+
+
 </dialog>
 
 
-  <h1>{{pred}}</h1>
-  <h1>{{pred1}}</h1>
+
 {% endblock %}

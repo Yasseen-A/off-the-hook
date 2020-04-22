@@ -17,14 +17,14 @@
   visibility: hidden;
 }
 
-/* body {
-  background-image: url('/static/img/background.jpg');
+body {
+  background-image: url('/static/img/spikes.png');
   background-position: center center;
-  background-repeat: no-repeat;
+  /* background-repeat: no-repeat;  */
   background-attachment: fixed;
-  background-size: cover;
+  /* background-size: cover; */
   background-color: #464646;
-} */
+}
 
 h1 {
   margin-top: 100px;
@@ -38,6 +38,25 @@ h1 {
   visibility: hidden;
 }
 
+.save_link{
+   margin-top: 100px;
+}
+
+.url_submit{
+  margin-left: 205px;
+}
+
+.url_register{
+  margin-top: 200px;
+}
+
+.result_image{
+  margin-top: 200px;
+}
+
+#toggle2{
+  margin-left: 490px;
+}
 
 #toggle1{
   visibility: hidden;
@@ -47,16 +66,19 @@ h1 {
 }
 
 #toggle1:checked ~ dialog {
+  position: absolute;
   display: block;
   width: 1000px;
 }
 
-label{
-  background: skyblue;
-  color: white;
+.toggle1 {
+  margin: 0px 0px 0px 20px;
+  color: Black;
+  font-size: 20pt;
   padding: .5em 1em;
   border-radius: 4px;
 }
+
 @keyframes appear {
   0%{
     opacity: 0;
@@ -65,6 +87,8 @@ label{
 }
 
 dialog{
-  animation: appear 350ms ease-in 1;
-  max-width: 1000px;
+  position: fixed;
+  top: 300px;
+  animation: appear 600ms ease-in 1;
+  max-width: 650px;
 }

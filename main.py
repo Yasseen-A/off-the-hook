@@ -1,10 +1,12 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session, logging, request
 from flask_mysqldb import MySQL
 from wtforms import Form, StringField, TextAreaField, PasswordField, validators
+from wtforms.validators import InputRequired
 from passlib.hash import sha256_crypt
 from functools import wraps
 import pickle
 import numpy as np
+import os
 
 
 app = Flask(__name__)
@@ -20,8 +22,27 @@ mysql = MySQL(app)
 
 model=pickle.load(open('model.pkl','rb'))
 
+picFolder = os.path.join('static', 'img')
+app.config['UPLOAD_FOLDER'] = picFolder
+
 @app.route("/")
 def home():
+    #Create Cursor
+    cur = mysql.connection.cursor()
+
+    #Get Articles
+    result = cur.execute("SELECT * FROM url WHERE percentage>49 Order by create_date desc LIMIT 2")
+
+    url = cur.fetchall()
+
+    if result > 0:
+        return render_template('home.html', url=url)
+    else:
+        msg = 'No URLs found'
+        return render_template('home.html', msg=msg)
+
+    #CLose connection
+    cur.close()
     return render_template("home.html")
 
 @app.route("/about")
@@ -146,7 +167,7 @@ def profile():
     cur.close()
 
 class ADD_URL(Form):
-    link = StringField('Link', [validators.Length(min=1, max=200)])
+    link = StringField('Please enter your URL again', [validators.Length(min=1, max=200), InputRequired()])
     percentage = StringField('Percentage')
 
 @app.route('/add_link', methods=['GET', 'POST'])
@@ -212,10 +233,12 @@ def predict():
     output='{0:.{1}f}'.format(pred_format[-1][1], 0)
     # text = request.form['url_input']
 
-    if output>str(50):
-        return render_template('add_link.html',pred='This website is safe.\n Security level of:',form=form, pred1=output)
+    if output>=str(50):
+        pic1 = os.path.join(app.config['UPLOAD_FOLDER'], 'tick.png')
+        return render_template('add_link.html',pred='This website is safe.\n Security level of:',form=form, pred1=output, result_image=pic1)
     else:
-        return render_template('add_link.html',pred='This website is not safe.\n Security level of only %{}'.format(output),form=form, pred1=output)
+        pic2 = os.path.join(app.config['UPLOAD_FOLDER'], 'cross.png')
+        return render_template('add_link.html',pred='This website is not safe.\n Security level of only:'.format(output),form=form, pred1=output, result_image=pic2)
 
 if __name__ == "__main__":
     app.secret_key='secret123'
